@@ -9,8 +9,8 @@ function getLinks( url ) {
     });
 
     // show something's happening
-    $("#status").html("Processing"); 
-    
+    $("#status").html("Processing");
+
     // if the request is successful, get the links we need
     request.done(function( obj ) {
 
@@ -19,12 +19,12 @@ function getLinks( url ) {
         // output accordion to user
         $("#content").append('<div class="panel-group" id="accordion">');
 
-        $(obj).find("li").each(function(index, element) { 
-            
+        $(obj).find("li").each(function(index, element) {
+
             l_text = $(this).find("a").text();
             l_href = $(this).find("a").attr("href");
             l_text_clean = l_text.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');
-            
+
             // -- accordion prepare start --
             accordion = '<div class="panel panel-default">'; // container start
 
@@ -32,9 +32,9 @@ function getLinks( url ) {
             accordion += '<div class="panel-heading"><h5 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#' + l_text_clean + '_id">' + l_text + '</a></h5></div>';
 
             // body
-            accordion += '<div id="' +  l_text_clean + '_id" class="panel-collapse collapse">';   
+            accordion += '<div id="' +  l_text_clean + '_id" class="panel-collapse collapse">';
                 accordion += '<div class="panel-body">';
-                
+
                     // content elements
                     accordion += '<div class="row"><div class="col-sm-2 t_label">URL:</div><div class="col-sm-10"><a href="http://download.novell.com' + l_href + '" target="_blank">http://download.novell.com' + l_href + '</a></div></div>';
                     accordion += '<div class="row"><div class="col-sm-2 t_label">DATE:</div><div class="col-sm-10" id="' + l_text_clean + '_date"></div></div>';
@@ -71,7 +71,7 @@ function getLinks( url ) {
                 description_text = $(this_obj).find("h4:contains('Description')").nextUntil("h4:contains('Solution')");
 
                 id_append_to = $(this_obj).find('#name_to_id').text(); // append to accordion content
-                
+
                 // console.log(id_append_to);
                 // console.log(title_text);
                 // console.log(indications_text);
@@ -83,9 +83,9 @@ function getLinks( url ) {
                 $( "#" + id_append_to + "_indications" ).append(indications_text);
                 $( "#" + id_append_to + "_contraindications" ).append(contraindications_text);
                 $( "#" + id_append_to + "_description" ).append(description_text);
- 
+
             });
-            
+
 
         });
 
