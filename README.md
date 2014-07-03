@@ -32,20 +32,20 @@ And the magic happens...
 Author
 =====
 
-Dorell James Galang <me@dorelljames.com>
-Website: http://dorelljames.com
-Follow me on twitter: @dorelljames
+Dorell James Galang <me@dorelljames.com>  
+Website: http://dorelljames.com  
+Follow me on twitter: [@dorelljames](https://twitter.com/dorelljames)  
  
 
 License
 =======
-Apache License
+Apache License  
 
 
 Changelog
 =========
 
-0.1 - Initial commit for working files 
-0.2 - Some cleanup and first release
+0.1 - Initial commit for working files  
+0.2 - Some cleanup and first release  
 
 
