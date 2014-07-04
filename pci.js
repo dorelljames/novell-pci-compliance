@@ -9,12 +9,17 @@ function getLinks( url ) {
     });
 
     // show something's happening
-    $("#status").html("Processing");
+    $("#instructions").slideUp("", function(){
+        $("#status").html("Please wait a moment... <img src='img/ajax-loader.gif' />").slideDown();
+    });
 
     // if the request is successful, get the links we need
     request.done(function( obj ) {
 
-        $("#status").html(""); // done
+        // $("#status").html(""); // done
+
+        // for html table and export
+        $("#tableexport tbody").html("");
 
         // output accordion to user
         $("#content").append('<div class="panel-group" id="accordion">');
@@ -49,7 +54,18 @@ function getLinks( url ) {
             accordion += '</div>'; // container close
             // -- accordion prepare end --
 
+            // table row
+            table_row = '<tr id="' + l_text_clean + '_id">'; // table row start
+                table_row += '<td id="tr_' + l_text_clean + '_date"></td>';
+                table_row += '<td id="tr_' + l_text_clean + '_title"></td>';
+                table_row += '<td id="tr_' + l_text_clean + '_indications"></td>';
+                table_row += '<td id="tr_' + l_text_clean + '_contraindications"></td>';
+                table_row += '<td id="tr_' + l_text_clean + '_description"></td>';
+            table_row += '</tr>'; // table row close
+
             $("#content").append(accordion); // append accordion
+
+            $("#tableexport tbody").append(table_row); // append table row
 
 
             // new request for every item
@@ -59,6 +75,8 @@ function getLinks( url ) {
                 data: { url: "http://download.novell.com" + l_href, id_to: l_text_clean  },
                 dataType: "html"
             }).done(function( this_obj, textStatus, this_XMLHttpRequest ) {
+
+                id_append_to = $(this_obj).find('#name_to_id').text(); // id of elements
 
                 // date
                 date_text_tmp = $(this_obj).find("span:contains('Creation Date')").parent().text();
@@ -70,7 +88,8 @@ function getLinks( url ) {
                 contraindications_text = $(this_obj).find("h4:contains('Contraindications')").next().text();
                 description_text = $(this_obj).find("h4:contains('Description')").nextUntil("h4:contains('Solution')");
 
-                id_append_to = $(this_obj).find('#name_to_id').text(); // append to accordion content
+                description_text2 = $(this_obj).find("h4:contains('Description')").nextUntil("h4:contains('Solution')"); // temporary fix for not showing description
+
 
                 // console.log(id_append_to);
                 // console.log(title_text);
@@ -84,12 +103,20 @@ function getLinks( url ) {
                 $( "#" + id_append_to + "_contraindications" ).append(contraindications_text);
                 $( "#" + id_append_to + "_description" ).append(description_text);
 
+                $( "#tr_" + id_append_to + "_date" ).append(date_text);
+                $( "#tr_" + id_append_to + "_title" ).append(title_text);
+                $( "#tr_" + id_append_to + "_indications" ).append(indications_text);
+                $( "#tr_" + id_append_to + "_contraindications" ).append(contraindications_text);
+                $( "#tr_" + id_append_to + "_description" ).append(description_text2);
+
+
             });
 
 
         });
 
         $("#content").append('</div>');
+
 
     }); // request.done end
 
@@ -112,5 +139,25 @@ $("document").ready(function() {
         event.preventDefault(); // prevents form from being submitted
 
     });
+
+    $("#exporttoexcel").click(function () {
+        $("#tableexport").btechco_excelexport({
+            containerid: "tableexport", datatype: $datatype.Table
+        });
+    });
+
+
+
+});
+
+
+$(document).ajaxStop(function() {
+
+    console.log("all requests are done!");
+
+    $("#status").html("<div class='alert alert-success'>Yay! All requests are done. You can now generate an Excel document.</div>"); // done
+
+    // display export button
+    $("#exporttoexcel").show();
 
 });

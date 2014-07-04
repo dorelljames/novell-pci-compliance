@@ -1,16 +1,49 @@
+body {
+    /*font-family: Tahoma, Verdana;*/
+    /*font-size: 120%;*/
+}
+
 #pci {
-	padding-top: 80px;
+    padding-top: 50px;
 }
 
 #pci #content a {
     display: block;
 }
 
-#content, #status, #log {
-    margin-top: 50px;
+#pci h1 {
+    color: #5cb85c;
+    /*font-family: Georgia;*/
+    text-align: center;
+}
+
+#status, #log, #instructions  {
+    margin-top: 20px;
+}
+
+#tabledata {
+    display: none;
+}
+
+#exporttoexcel {
+    display: none;
 }
 
 .t_label {
     font-size: 12px;
     font-style: italic;
+}
+
+.page-header {
+    color: #566;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 12px;
+}
+
+
+.page-header .note {
+    font-family: Tahoma, Verdana;
+    /*font-style: italic;*/
+    color: #888;
 }
