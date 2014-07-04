@@ -47,5 +47,5 @@ Changelog
 
 0.1 - Initial commit for working files  
 0.2 - Some cleanup and first release  
-
+0.3 - Added core function export to Excel document
 
